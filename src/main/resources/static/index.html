@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello WebSocket</title>
+    <script src="/script/lib/angular.min.js"></script>
+    <script src="/script/lib/sockjs.min.js"></script>
+    <script src="/script/lib/stomp.min.js"></script>
+    <script src="/script/src/app.js"></script>
+</head>
+<body ng-app="Scorpio" ng-controller="MainController">
+    <div id="main-content" class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="connect">WebSocket connection:</label>
+                    <button id="connect" class="btn btn-default" ng-disabled="!disconnect_toggle" ng-click="connect()">Connect</button>
+                    <button id="disconnect" class="btn btn-default" ng-disabled="disconnect_toggle" ng-click="disconnect()">Disconnect
+                    </button>
+                </div><br><hr>
+            </div>
+            <div class="col-md-6">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="symbol">symbol</label>
+                        <input id="symbol" ng-model="pricingRequest.symbol"><br>
+                        <label for="calculatorType">calculatorType</label>
+                        <select id="calculatorType" ng-model="pricingRequest.calculatorType">
+                            <option value="GBSM">GBSM</option>
+                        </select><br>
+                        <label for="type">type</label>
+                        <select id="type" ng-model="pricingRequest.input.type">
+                            <option value="EquityOptionInput">EquityOptionInput</option>
+                        </select><br>
+                        <label for="strikePrice">strikePrice</label>
+                        <input id="strikePrice" ng-model="pricingRequest.input.strikePrice"><br>
+                        <label for="underlyingPrice">underlyingPrice</label>
+                        <input id="underlyingPrice" ng-model="pricingRequest.input.underlyingPrice"><br>
+                        <label for="riskFreeRate">riskFreeRate</label>
+                        <input id="riskFreeRate" ng-model="pricingRequest.input.riskFreeRate"><br>
+                        <label for="dividendRate">dividendRate</label>
+                        <input id="dividendRate" ng-model="pricingRequest.input.dividendRate"><br>
+                        <label for="volatility">volatility</label>
+                        <input id="volatility" ng-model="pricingRequest.input.volatility"><br>
+                        <label for="timeToMaturity">timeToMaturity</label>
+                        <input id="timeToMaturity" ng-model="pricingRequest.input.timeToMaturity"><br>
+                        <label for="putCall">putCall</label>
+                        <select id="putCall" ng-model="pricingRequest.input.putCall">
+                            <option value="PUT">PUT</option>
+                            <option value="CALL">CALL</option>
+                        </select><br>
+                        <label for="exerciseType">exerciseType</label>
+                        <select id="exerciseType" ng-model="pricingRequest.input.exerciseType">
+                            <option value="EUROPEAN">EUROPEAN</option>
+                            <option value="AMERICAN">AMERICAN</option>
+                        </select><br>
+                        <button id="send" ng-click="sendMessage()">Request</button><br>
+                    </div><br><hr>
+                    <div>
+                        <label for="interval">interval</label>
+                        <input id="interval" ng-model="interval">
+                        <button id="timer" ng-click="startTimer()">Simulate</button>
+                        <button id="stop" ng-click="stopTimer()">Stop</button>
+                    </div><br><hr>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <span>==== Valuation ====</span><br>
+                    <label for="delta">delta: </label>
+                    <span id="delta">{{ response.valuation.delta | number:4 }}</span><br>
+                    <label for="gamma">gamma: </label>
+                    <span id="gamma">{{ response.valuation.gamma | number:6 }}</span><br>
+                    <label for="vega">vega: </label>
+                    <span id="vega">{{ response.valuation.vega | number:4 }}</span><br>
+                    <label for="theta">theta: </label>
+                    <span id="theta">{{ response.valuation.theta | number:4 }}</span><br>
+                    <label for="rho">rho: </label>
+                    <span id="rho">{{ response.valuation.rho | number:4 }}</span><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
