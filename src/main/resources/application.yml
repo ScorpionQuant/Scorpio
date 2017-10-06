@@ -1,0 +1,11 @@
+kafka:
+  bootstrap-servers: localhost:9092
+  topic:
+    test: test
+    pricing:
+      request: option.pricing.request
+      response: option.pricing.response
+  group: test
+ws:
+  queue:
+    valuation: /queue/valuation
