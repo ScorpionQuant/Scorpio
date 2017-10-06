@@ -19,8 +19,8 @@ public class CommodityOptionInput extends OptionInput {
                                 @JsonProperty("timeToMaturity") double timeToMaturity,
                                 @JsonProperty("putCall") PutCall putCall,
                                 @JsonProperty("exerciseType") ExerciseType exerciseType,
-                                @JsonProperty("storageCost") double convenienceYield,
-                                @JsonProperty("convenienceYield")double storageCost) {
+                                @JsonProperty("storageCost") double storageCost,
+                                @JsonProperty("convenienceYield") double convenienceYield) {
         super(underlyingPrice, strikePrice, riskFreeRate, volatility, timeToMaturity, putCall, exerciseType);
         this.storageCost = storageCost;
         this.convenienceYield = convenienceYield;

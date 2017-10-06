@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 public class GeneralizedBSMTest {
 
-    Calculator calculator;
+    private Calculator calculator;
 
     @Before
     public void setup() {
