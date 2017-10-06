@@ -1,0 +1,15 @@
+{
+  "symbol": "0005.hk",
+  "calculatorType": "GBSM",
+  "input": {
+    "type": "EquityOptionInput",
+    "strikePrice": "100",
+    "underlyingPrice": "90",
+    "dividendRate": "0",
+    "riskFreeRate": "0.03",
+    "volatility": "0.12",
+    "timeToMaturity": "100",
+    "putCall": "CALL",
+    "exerciseType": "EUROPEAN"
+  }
+}

@@ -27,22 +27,22 @@ public class GeneralizedBSMTest {
                 110d,
                 100d,
                 .05,
-                .02,
                 .3,
                 1d,
                 PutCall.CALL,
-                ExerciseType.EUROPEAN
+                ExerciseType.EUROPEAN,
+                .02
         );
 
         OptionInput equityPut = new EquityOptionInput(
                 110d,
                 100d,
                 .05,
-                .02,
                 .3,
                 1d,
                 PutCall.PUT,
-                ExerciseType.EUROPEAN
+                ExerciseType.EUROPEAN,
+                .02
         );
 
         Valuation equityCallOutput = calculator.calculate(equityCall);
@@ -69,24 +69,24 @@ public class GeneralizedBSMTest {
                 110d,
                 100d,
                 .05,
-                .015,
-                .025,
                 .3,
                 1d,
                 PutCall.CALL,
-                ExerciseType.EUROPEAN
+                ExerciseType.EUROPEAN,
+                .015,
+                .025
         );
 
         OptionInput commodityPut = new CommodityOptionInput(
                 110d,
                 100d,
                 .05,
-                .015,
-                .025,
                 .3,
                 1d,
                 PutCall.PUT,
-                ExerciseType.EUROPEAN
+                ExerciseType.EUROPEAN,
+                .015,
+                .025
         );
 
         Valuation commodityCallOutput = calculator.calculate(commodityCall);
