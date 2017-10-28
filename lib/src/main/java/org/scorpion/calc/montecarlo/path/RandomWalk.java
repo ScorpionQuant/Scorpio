@@ -15,7 +15,7 @@ public class RandomWalk implements PathGenerator {
     }
 
     @Override
-    public List<Double> generateOneBrownianPath() {
-        return rng.getGaussianNumbers();
+    public void generateOneBrownianPath(List<Double> path) {
+        path.addAll(rng.getGaussianNumbers());
     }
 }

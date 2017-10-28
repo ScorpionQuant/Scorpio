@@ -11,47 +11,23 @@ import java.util.List;
 
 public class VanillaMCEngine extends MonteCarloEngine {
 
-    private double costOfCarry;
-    private double initialSpot;
-    private double timeToMaturity;
-    private double volatility;
-
-    private MonteCarloParam param;
-
-    /* ---- this is the calculate specialized parameters ---- */
-    private long numberOfTimeSteps;
-    private double stepLength;
-    private double variance;
-    private double rootVariance;
-    private double itoCorrelation;
-    /* ---- this is the calculate specialized parameters ---- */
-
-    public VanillaMCEngine(PathGenerator pathGen,
-                           Payoff payoff,
-                           DiscountFactor discountFactor,
-                           double costOfCarry,
+    public VanillaMCEngine(double costOfCarry,
                            double initialSpot,
                            double timeToMaturity,
                            double volatility,
+                           PathGenerator pathGen,
+                           Payoff payoff,
+                           DiscountFactor discountFactor,
                            MonteCarloParam param) {
-        super(pathGen, payoff, discountFactor);
-        this.costOfCarry = costOfCarry;
-        this.initialSpot = initialSpot;
-        this.timeToMaturity = timeToMaturity;
-        this.volatility = volatility;
-        this.param = param;
-        this.numberOfTimeSteps = param.getNumberOfTimeStep();
-        this.stepLength = timeToMaturity / numberOfTimeSteps;
-        this.variance = stepLength * volatility * volatility;
-        this.rootVariance = Math.sqrt(variance);
-        this.itoCorrelation = -.5 * variance;
+        super(costOfCarry, initialSpot, timeToMaturity, volatility, pathGen, payoff, discountFactor, param);
     }
 
     @Override
     public MCSinglePathResult doOnePath() throws Exception {
         double res = Math.log(initialSpot);
 
-        List<Double> randomNumbers = pathGen.generateOneBrownianPath();
+        List<Double> randomNumbers = new ArrayList<>();
+        pathGen.generateOneBrownianPath(randomNumbers);
         if (numberOfTimeSteps != randomNumbers.size()) {
             throw new RuntimeException("The number of time steps should be match");
         }
