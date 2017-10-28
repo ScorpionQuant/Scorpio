@@ -1,9 +1,24 @@
 package org.scorpion.calc.montecarlo;
 
-public interface MonteCarloEngine {
+import org.scorpion.calc.discount.DiscountFactor;
+import org.scorpion.calc.payoff.Payoff;
 
-    MCSinglePathResult doOnePath () throws Exception;
+public abstract class MonteCarloEngine {
 
-    MCStatistics doSimulate() throws Exception;
+    protected PathGenerator pathGen;
+    protected Payoff payoff;
+    protected DiscountFactor discountFactor;
+
+    public MonteCarloEngine(PathGenerator pathGen,
+                            Payoff payoff,
+                            DiscountFactor discountFactor) {
+        this.pathGen = pathGen;
+        this.payoff = payoff;
+        this.discountFactor = discountFactor;
+    }
+
+    public abstract MCSinglePathResult doOnePath () throws Exception;
+
+    public abstract MCStatistics doSimulate() throws Exception;
     
 }
