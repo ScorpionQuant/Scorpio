@@ -3,19 +3,18 @@ package org.scorpion.calc.montecarlo;
 public class MonteCarloParam {
 
     private long numberOfPaths;
-    private long dimensionality;
+    private long numberOfTimeStep;
 
-    public MonteCarloParam(long numberOfPaths, long dimensionality) {
+    public MonteCarloParam(long numberOfPaths, long numberOfTimeStep) {
         this.numberOfPaths = numberOfPaths;
-        this.dimensionality = dimensionality;
+        this.numberOfTimeStep = numberOfTimeStep;
     }
 
     public long getNumberOfPaths() {
         return numberOfPaths;
     }
 
-    public long getDimensionality() {
-        return dimensionality;
+    public long getNumberOfTimeStep() {
+        return numberOfTimeStep;
     }
-
 }

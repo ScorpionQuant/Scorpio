@@ -9,7 +9,7 @@ import org.scorpion.calc.payoff.Payoff;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VanillaMCEngine implements MonteCarloEngine {
+public class VanillaMCEngine extends MonteCarloEngine {
 
     private double costOfCarry;
     private double initialSpot;
@@ -18,39 +18,30 @@ public class VanillaMCEngine implements MonteCarloEngine {
 
     private MonteCarloParam param;
 
-    private RandomNumberGenerator rng;
-    private Payoff payoff;
-    private DiscountFactor discountFactor;
-
     /* ---- this is the calculate specialized parameters ---- */
-    private long dimensionality;
+    private long numberOfTimeSteps;
     private double stepLength;
     private double variance;
     private double rootVariance;
     private double itoCorrelation;
     /* ---- this is the calculate specialized parameters ---- */
 
-    public VanillaMCEngine(
-            double costOfCarry,
-            double initialSpot,
-            double timeToMaturity,
-            double volatility,
-            MonteCarloParam param,
-            Payoff payoff,
-            DiscountFactor discountFactor,
-            RandomNumberGenerator rng) {
+    public VanillaMCEngine(PathGenerator pathGen,
+                           Payoff payoff,
+                           DiscountFactor discountFactor,
+                           double costOfCarry,
+                           double initialSpot,
+                           double timeToMaturity,
+                           double volatility,
+                           MonteCarloParam param) {
+        super(pathGen, payoff, discountFactor);
         this.costOfCarry = costOfCarry;
         this.initialSpot = initialSpot;
         this.timeToMaturity = timeToMaturity;
         this.volatility = volatility;
         this.param = param;
-        this.payoff = payoff;
-        this.discountFactor = discountFactor;
-        this.rng = rng;
-
-        this.dimensionality = param.getDimensionality();
-
-        this.stepLength = timeToMaturity / dimensionality;
+        this.numberOfTimeSteps = param.getNumberOfTimeStep();
+        this.stepLength = timeToMaturity / numberOfTimeSteps;
         this.variance = stepLength * volatility * volatility;
         this.rootVariance = Math.sqrt(variance);
         this.itoCorrelation = -.5 * variance;
@@ -60,9 +51,9 @@ public class VanillaMCEngine implements MonteCarloEngine {
     public MCSinglePathResult doOnePath() throws Exception {
         double res = Math.log(initialSpot);
 
-        List<Double> randomNumbers = rng.getGaussianNumbers();
-        if (dimensionality != randomNumbers.size()) {
-            throw new RuntimeException("The dimensionality should be match");
+        List<Double> randomNumbers = pathGen.generateOneBrownianPath();
+        if (numberOfTimeSteps != randomNumbers.size()) {
+            throw new RuntimeException("The number of time steps should be match");
         }
         /*
          * Here I use the log Euler rather than directly euler. Which gives more accurate outcomes
@@ -82,7 +73,6 @@ public class VanillaMCEngine implements MonteCarloEngine {
 
     @Override
     public MCStatistics doSimulate() throws Exception {
-        rng.skip(1);
         List<MCSinglePathResult> res = new ArrayList<>();
         long numberOfPaths = param.getNumberOfPaths();
         for (int i = 0; i < numberOfPaths; ++i) {
