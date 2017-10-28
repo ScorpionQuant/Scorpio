@@ -23,15 +23,18 @@ public class VanillaMCEngineTest {
 
     @Test
     public void testMCVanilla() throws Exception {
+
         MonteCarloEngine engine = new VanillaMCEngine(
-                pathGen,
-                payoff,
-                df,
                 .03,
                 100,
                 1,
                 .3,
-                new MonteCarloParam(numberOfPaths, dimension));
+                pathGen,
+                payoff,
+                df,
+                new MonteCarloParam(numberOfPaths, dimension)
+        );
+
         MCStatistics stat = engine.doSimulate();
 
         double res = stat.value();

@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface PathGenerator {
 
-    List<Double> generateOneBrownianPath();
+    void generateOneBrownianPath(List<Double> path);
 
 }
