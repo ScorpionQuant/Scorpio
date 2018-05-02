@@ -1,0 +1,35 @@
+allprojects {
+
+    group 'scorpio'
+    version '1.0'
+
+    apply plugin: 'idea'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+
+    apply plugin: 'java'
+
+    compileJava {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    dependencies {
+        implementation 'org.springframework.kafka:spring-kafka:2.1.5.RELEASE'
+
+        implementation 'com.fasterxml.jackson.core:jackson-core:2.9.5'
+        implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.5'
+        implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.5'
+
+        implementation 'org.slf4j:slf4j-api:1.7.25'
+        implementation 'com.google.guava:guava:19.0'
+        implementation 'org.apache.commons:commons-lang3:3.6'
+
+        testImplementation("junit:junit:4.12")
+    }
+}

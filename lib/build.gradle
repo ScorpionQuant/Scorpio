@@ -1,0 +1,4 @@
+dependencies {
+    implementation 'colt:colt:1.2.0'
+    implementation 'org.apache.commons:commons-math3:3.6'
+}
